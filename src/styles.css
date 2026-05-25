@@ -1,0 +1,67 @@
+/* Altaan Detector — global styles */
+*,*::before,*::after{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:#f1f5f9;
+  color:#0f172a;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;cursor:pointer}
+textarea{font-family:inherit}
+
+/* Modal overlay */
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(15,23,42,.55);
+  display:flex;align-items:center;justify-content:center;
+  z-index:100;padding:16px;
+}
+.modal-card{
+  background:#fff;border-radius:14px;padding:28px;
+  width:100%;max-width:440px;box-shadow:0 20px 60px rgba(15,23,42,.25);
+}
+.modal-card h2{margin:0 0 8px;font-size:20px}
+.modal-card p{margin:0 0 16px;color:#475569;font-size:14px;line-height:1.5}
+
+/* Buttons */
+.btn-primary{
+  display:inline-block;background:#0f172a;color:#fff;border:0;
+  padding:11px 18px;border-radius:9px;font-weight:600;font-size:14px;
+  width:100%;
+}
+.btn-primary:hover{background:#1e293b}
+.btn-primary:disabled{background:#94a3b8;cursor:not-allowed}
+.btn-secondary{
+  display:inline-block;background:#fff;color:#0f172a;
+  border:1px solid #cbd5e1;padding:10px 14px;border-radius:9px;
+  font-weight:600;font-size:13px;
+}
+.btn-secondary:hover{background:#f8fafc}
+
+input.field{
+  width:100%;padding:11px 13px;border:1px solid #cbd5e1;
+  border-radius:9px;font-size:14px;outline:none;
+}
+input.field:focus{border-color:#0f172a}
+
+/* Usage meter */
+.usage-bar{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 12px;background:#f1f5f9;border-radius:999px;
+  font-size:12px;color:#475569;
+}
+.usage-bar .bar{
+  width:80px;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden;
+}
+.usage-bar .fill{height:100%;background:#0f172a;transition:width .3s}
+.usage-bar.warn .fill{background:#d97706}
+.usage-bar.over .fill{background:#dc2626}
+
+/* AI-rewritten sentence highlight */
+.sentence-ai-rewritten{
+  background:#ecfeff;
+  border-bottom:2px solid #06b6d4;
+  padding:2px 4px;
+  border-radius:3px;
+}
