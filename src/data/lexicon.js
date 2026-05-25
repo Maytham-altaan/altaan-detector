@@ -230,6 +230,72 @@ export const BASE = {
   basically:{w:2,alt:["in short","roughly"],modes:["blog"]},
   fundamentally:{w:2,alt:["at heart","basically"],modes:["blog"]},
   unleash:{w:3,alt:["release","let loose","free"],modes:["blog"]},
+
+  /* ------------------------------------------------------------ */
+  /*  ROUND 2 EXPANSION  —  more domain-specific AI tells          */
+  /* ------------------------------------------------------------ */
+
+  /* General additions */
+  encompasses:{w:2,alt:["covers","includes"]},
+  underscores:{w:3,alt:["highlights","stresses","points to"]},
+  manifests:{w:2,alt:["shows","appears","comes out as"]},
+  characterized:{w:2,alt:["marked","defined","known"]},
+  reflects:{w:1,alt:["shows","mirrors"]},
+  embody:{w:2,alt:["represent","stand for","capture"]},
+  exemplifies:{w:2,alt:["shows","is an example of"]},
+  encapsulates:{w:3,alt:["sums up","captures","contains"]},
+  galvanize:{w:3,alt:["motivate","energize","stir"]},
+  permeate:{w:3,alt:["fill","spread through"]},
+  pervade:{w:3,alt:["fill","run through","be everywhere in"]},
+  reinforce:{w:1,alt:["strengthen","back up"]},
+  underpin:{w:3,alt:["support","be the basis of"]},
+  reify:{w:3,alt:["make real","make concrete"]},
+  consolidate:{w:2,alt:["combine","bring together","strengthen"]},
+
+  /* Academic — round 2 */
+  discourse:{w:3,alt:["debate","discussion","talk"],modes:["academic"]},
+  praxis:{w:3,alt:["practice","applied work"],modes:["academic"]},
+  nexus:{w:3,alt:["link","connection","point"],modes:["academic"]},
+  schema:{w:2,alt:["plan","outline","model"],modes:["academic"]},
+  typology:{w:3,alt:["classification","grouping"],modes:["academic"]},
+  heuristic:{w:2,alt:["rule of thumb","shortcut"],modes:["academic"]},
+  mediate:{w:2,alt:["go between","bridge"],modes:["academic"]},
+  enact:{w:2,alt:["carry out","perform"],modes:["academic"]},
+  ontological:{w:3,alt:["about being","existence-related"],modes:["academic"]},
+  phenomenological:{w:3,alt:["experience-based"],modes:["academic"]},
+  reflexivity:{w:3,alt:["self-awareness","self-reflection"],modes:["academic"]},
+  positionality:{w:3,alt:["standpoint","perspective"],modes:["academic"]},
+  destabilize:{w:3,alt:["unsettle","disrupt","question"],modes:["academic"]},
+  thematize:{w:3,alt:["make a theme of","frame around"],modes:["academic"]},
+
+  /* Medical — round 2 */
+  comorbidity:{w:2,alt:["co-occurring condition","linked condition"],modes:["medical"]},
+  comorbidities:{w:2,alt:["co-occurring conditions","linked conditions"],modes:["medical"]},
+  contraindicated:{w:2,alt:["not advised","ruled out"],modes:["medical"]},
+  prophylactic:{w:2,alt:["preventive"],modes:["medical"]},
+  refractory:{w:3,alt:["unresponsive","resistant to treatment"],modes:["medical"]},
+  iatrogenic:{w:3,alt:["treatment-caused","caused by care"],modes:["medical"]},
+  idiopathic:{w:3,alt:["of unknown cause"],modes:["medical"]},
+  sequelae:{w:3,alt:["after-effects","later effects"],modes:["medical"]},
+  pathogenesis:{w:3,alt:["how the disease develops"],modes:["medical"]},
+  etiology:{w:3,alt:["cause","origin"],modes:["medical"]},
+  adjuvant:{w:2,alt:["add-on","supporting"],modes:["medical"]},
+  compensatory:{w:2,alt:["balancing","offsetting"],modes:["medical"]},
+  recalcitrant:{w:3,alt:["stubborn","resistant"],modes:["medical"]},
+
+  /* Business — round 2 */
+  monetize:{w:3,alt:["make money from","earn from"],modes:["business"]},
+  monetization:{w:3,alt:["earning revenue from"],modes:["business"]},
+  frictionless:{w:3,alt:["smooth","easy","seamless"],modes:["business"]},
+  omnichannel:{w:3,alt:["multi-channel","across channels"],modes:["business"]},
+  traction:{w:2,alt:["progress","pull","momentum"],modes:["business"]},
+  retention:{w:2,alt:["keeping customers","staying power"],modes:["business"]},
+  onboarding:{w:2,alt:["getting started","setup"],modes:["business"]},
+  engagement:{w:1,alt:["involvement","interest"],modes:["business"]},
+  pivot:{w:2,alt:["change direction","shift"],modes:["business"]},
+  optimize:{w:2,alt:["improve","fine-tune","refine"],modes:["business"]},
+  saturated:{w:2,alt:["crowded","full"],modes:["business"]},
+  agile:{w:2,alt:["flexible","quick","adaptable"],modes:["business"]},
 };
 
 export const PHRASES = {
@@ -397,6 +463,76 @@ export const PHRASES = {
   "trust me":{w:2,alt:["honestly","really"],modes:["blog"]},
   "buckle up":{w:3,alt:["get ready","brace yourself"],modes:["blog"]},
   "a journey of":{w:3,alt:["a path of","a process of"],modes:["blog"]},
+
+  /* ------------------------------------------------------------ */
+  /*  ROUND 2 PHRASE EXPANSION                                    */
+  /* ------------------------------------------------------------ */
+
+  /* General — strong AI phrasing across all writing */
+  "of paramount importance":{w:3,alt:["very important","key"]},
+  "a wealth of":{w:3,alt:["a lot of","many"]},
+  "a host of":{w:3,alt:["many","several","various"]},
+  "in light of":{w:2,alt:["given","because of"]},
+  "with respect to":{w:2,alt:["about","on"]},
+  "in this regard":{w:2,alt:["on this","here"]},
+  "to this end":{w:3,alt:["for this","so","to do this"]},
+  "the relationship between":{w:1,alt:["the link between","how X relates to Y"]},
+  "the intersection of":{w:3,alt:["the meeting point of","where X meets Y"]},
+  "shed new light on":{w:3,alt:["clarify","reveal more about"]},
+  "is not without its":{w:3,alt:["has its","has some"]},
+  "in many ways":{w:1,alt:["often","in some ways"]},
+  "a key driver":{w:2,alt:["a main cause","a major factor"]},
+  "a critical factor":{w:2,alt:["an important factor","a key factor"]},
+  "play a key role":{w:3,alt:["matter a lot","are important"]},
+  "the importance of which":{w:3,alt:["which matters"]},
+  "it remains to be seen":{w:2,alt:["it's not clear yet"]},
+  "without a doubt":{w:2,alt:["definitely","clearly"]},
+  "more often than not":{w:2,alt:["usually","most of the time"]},
+  "in many cases":{w:1,alt:["often"]},
+
+  /* Academic — round 2 */
+  "this analysis seeks to":{w:3,alt:["this work tries to","we set out to"],modes:["academic"]},
+  "drawing on":{w:2,alt:["based on","using"],modes:["academic"]},
+  "informed by":{w:2,alt:["based on","drawing from"],modes:["academic"]},
+  "situated within":{w:3,alt:["placed in","set in the context of"],modes:["academic"]},
+  "central to this":{w:2,alt:["key to this","main to this"],modes:["academic"]},
+  "extends beyond":{w:2,alt:["goes past","reaches further than"],modes:["academic"]},
+  "operates at the intersection":{w:3,alt:["sits between","bridges"],modes:["academic"]},
+  "the broader context":{w:2,alt:["the bigger picture","the wider setting"],modes:["academic"]},
+  "the present analysis":{w:2,alt:["this analysis","our work"],modes:["academic"]},
+  "in this paper":{w:1,alt:["here","in this work"],modes:["academic"]},
+
+  /* Medical — round 2 */
+  "is associated with":{w:2,alt:["is linked to","goes with"],modes:["medical"]},
+  "associated with an increased":{w:3,alt:["linked to a higher","tied to greater"],modes:["medical"]},
+  "has been linked to":{w:2,alt:["is tied to","connects to"],modes:["medical"]},
+  "is implicated in":{w:3,alt:["is involved in","plays a role in"],modes:["medical"]},
+  "is mediated by":{w:3,alt:["is driven by","works through"],modes:["medical"]},
+  "is characterized by":{w:2,alt:["is marked by","shows"],modes:["medical"]},
+  "a critical determinant":{w:3,alt:["a key factor","a main driver"],modes:["medical"]},
+  "robust evidence":{w:2,alt:["strong evidence","solid data"],modes:["medical"]},
+  "consistent with prior":{w:2,alt:["matching earlier","in line with previous"],modes:["medical"]},
+  "the magnitude of":{w:2,alt:["the size of","how big"],modes:["medical"]},
+  "the burden of":{w:2,alt:["the load of","the impact of"],modes:["medical"]},
+  "in this population":{w:1,alt:["in this group"],modes:["medical"]},
+  "in this cohort":{w:2,alt:["in this group"],modes:["medical"]},
+
+  /* Business — round 2 */
+  "thought leadership":{w:3,alt:["expert influence","leading voice"],modes:["business"]},
+  "go-to-market":{w:2,alt:["launch","entry to market"],modes:["business"]},
+  "product-market fit":{w:2,alt:["match between product and market"],modes:["business"]},
+  "competitive advantage":{w:2,alt:["edge","upper hand"],modes:["business"]},
+  "in the long run":{w:1,alt:["over time","long-term"],modes:["business"]},
+  "core values":{w:2,alt:["main beliefs","key principles"],modes:["business"]},
+  "customer journey":{w:3,alt:["customer path","customer experience"],modes:["business"]},
+  "user experience":{w:1,alt:["how it feels to use","the user side"],modes:["business"]},
+  "user-friendly":{w:2,alt:["easy to use","simple"],modes:["business"]},
+  "best-in-class":{w:3,alt:["top-tier","leading","top"],modes:["business"]},
+  "pain point":{w:3,alt:["problem","frustration","issue"],modes:["business"]},
+  "pain points":{w:3,alt:["problems","frustrations","issues"],modes:["business"]},
+  "key performance indicators":{w:3,alt:["main metrics","key measures"],modes:["business"]},
+  "return on investment":{w:2,alt:["payoff","return"],modes:["business"]},
+  "value-add":{w:3,alt:["extra value","added benefit"],modes:["business"]},
 };
 
 export const AI_OPENERS = [
