@@ -8,7 +8,7 @@ The stack:
 |---|---|---|---|
 | Frontend + Backend | **Vercel** | Yes | Hosts the React app + the `api/*` serverless functions |
 | Database | **Vercel KV** (Upstash) | 256MB / 10k commands a day | Stores users + usage counters |
-| AI rewrite | **Anthropic Claude** | Pay-as-you-go (cheap) | Powers the premium "AI Rewrite" feature |
+| AI rewrite | **Groq** (Llama 3.3 70B) | **Free** — ~14k req/day, no card | Powers the premium "AI Rewrite" feature |
 | Auth emails | **Resend** | 100 emails/day, 3k/mo | Sends magic-link sign-in emails |
 | Payments | **Stripe** | Pay 2.9% + 30¢/charge | Subscriptions for premium |
 
@@ -32,7 +32,7 @@ Open these in tabs. Stop after creating the account — we'll come back for keys
 
 1. **GitHub** — <https://github.com> (you probably already have this).
 2. **Vercel** — <https://vercel.com/signup>. Sign in with GitHub.
-3. **Anthropic Console** — <https://console.anthropic.com/>. Add a payment method. Drop $10 into credits — that gets you ~10,000 rewrites with Haiku.
+3. **Groq Console** — <https://console.groq.com>. **Free, no credit card.** Sign in with Google/GitHub. We use Groq's Llama 3.3 70B to power AI rewrites — free tier covers ~14k requests/day which is more than enough for the MVP. (If you ever want to switch to paid Claude later, see the "Switching AI provider" section at the bottom.)
 4. **Resend** — <https://resend.com>. Sign in with GitHub.
 5. **Stripe** — <https://dashboard.stripe.com/register>. Use a real business email. You can skip account activation until you actually want to take real payments; **test mode is fine for now**.
 
@@ -74,10 +74,12 @@ After the first deploy you'll get a URL like `https://altaan-detector.vercel.app
 
 ---
 
-## 5. Get an Anthropic API key
+## 5. Get a Groq API key (free)
 
-1. <https://console.anthropic.com/settings/keys> → **Create Key** → name it `altaan-detector-prod`.
-2. Copy the `sk-ant-...` value.
+1. <https://console.groq.com/keys> → **Create API Key** → name it `altaan-detector`.
+2. Copy the `gsk_...` value. **Save it now** — Groq only shows it once.
+
+No credit card needed. The free tier gives you ~14k requests/day on Llama 3.3 70B — enough for the first ~100 active premium users with zero cost.
 
 ---
 
@@ -119,7 +121,8 @@ In Vercel project → **Settings** → **Environment Variables**. Add each below
 |---|---|
 | `SESSION_SECRET` | A long random string. Generate one with `openssl rand -hex 32` in Terminal. |
 | `APP_URL` | Your Vercel URL (e.g. `https://altaan-detector.vercel.app`) |
-| `ANTHROPIC_API_KEY` | `sk-ant-...` from step 5 |
+| `LLM_PROVIDER` | `groq` (default) |
+| `GROQ_API_KEY` | `gsk_...` from step 5 |
 | `RESEND_API_KEY` | `re_...` from step 6 |
 | `AUTH_FROM_EMAIL` | `Altaan Detector <no-reply@your-domain.com>` (or `onboarding@resend.dev` for testing) |
 | `STRIPE_SECRET_KEY` | `sk_test_...` from step 7 |
@@ -202,7 +205,25 @@ Build the above only after you have paying customers asking for them.
 
 ## Troubleshooting
 
-**"AI rewrite failed" toast.** Check Vercel Logs for the function. Usually missing/wrong `ANTHROPIC_API_KEY` or empty credits in Anthropic Console.
+**"AI rewrite failed" toast.** Check Vercel Logs for the function. Usually missing/wrong `GROQ_API_KEY` (or `ANTHROPIC_API_KEY` if you switched providers). If you've blown past Groq's free daily quota, you'll see a 429 from them — wait a few hours or upgrade to Groq's paid tier (still very cheap).
+
+---
+
+## Switching AI provider (Groq ↔ Claude)
+
+The backend talks to either provider through the same code path. To switch:
+
+| Goal | Env var change |
+|---|---|
+| Stay on Groq free (default) | `LLM_PROVIDER=groq` + `GROQ_API_KEY=gsk_...` |
+| Switch to paid Claude | `LLM_PROVIDER=anthropic` + `ANTHROPIC_API_KEY=sk-ant-...` |
+| Override model | `REWRITE_MODEL=<exact-model-name>` |
+
+Default models:
+- Groq: `llama-3.3-70b-versatile`
+- Anthropic: `claude-haiku-4-5`
+
+No code change needed — only env vars in Vercel.
 
 **Magic link email not arriving.** In `dev` mode without `RESEND_API_KEY`, the link is logged to the Vercel function logs instead — copy from there. In production, check Resend's "Logs" tab for delivery errors.
 
