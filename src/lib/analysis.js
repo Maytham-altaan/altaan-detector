@@ -6,12 +6,12 @@
    morphology-aware word swapping.
    ================================================================ */
 
-import { LEXICON, PHRASES, AI_OPENERS, HEDGES } from "../data/lexicon.js";
+import { LEXICON, PHRASES, AI_OPENERS, HEDGES, entryActiveInMode } from "../data/lexicon.js";
 
 /* ---------------------------------------------------------------
    TOKENISER  — words + gaps, so the text rebuilds exactly
    --------------------------------------------------------------- */
-export function tokenize(text) {
+export function tokenize(text, mode = "general") {
   const tokens = [];
   const re = /([A-Za-z][A-Za-z'’-]*)|([^A-Za-z]+)/g;
   let m, id = 0;
@@ -20,7 +20,9 @@ export function tokenize(text) {
       const word = m[1];
       const clean = word.toLowerCase().replace(/['’]/g, "'").replace(/-/g, "");
       const cleanHyphen = word.toLowerCase().replace(/['’]/g, "'");
-      const def = LEXICON[clean] || LEXICON[cleanHyphen];
+      let def = LEXICON[clean] || LEXICON[cleanHyphen];
+      /* skip entries that don't apply in the current mode */
+      if (def && !entryActiveInMode(def, mode)) def = undefined;
       tokens.push({
         id: id++, type: "word", text: word, clean, cleanHyphen,
         score: def ? def.w : 0, alt: def ? def.alt : null,
@@ -32,7 +34,7 @@ export function tokenize(text) {
   return tokens;
 }
 
-export function detectPhrases(tokens) {
+export function detectPhrases(tokens, mode = "general") {
   const wordIdx = tokens.map((t, i) => (t.type === "word" ? i : -1)).filter(i => i >= 0);
   const hits = [];
   const used = new Set();
@@ -46,7 +48,7 @@ export function detectPhrases(tokens) {
       const phraseText = tokens.slice(startTok, endTok + 1).map(t => t.text).join("")
         .toLowerCase().replace(/['’]/g, "'").trim();
       const def = PHRASES[phraseText];
-      if (def) {
+      if (def && entryActiveInMode(def, mode)) {
         hits.push({ startTok, endTok, def, key: phraseText });
         slice.forEach(i => used.add(i));
         break;
@@ -76,7 +78,7 @@ export function splitSentences(text) {
 /* ---------------------------------------------------------------
    SENTENCE SCORING — the core detector heuristic
    --------------------------------------------------------------- */
-export function scoreSentence(sentence, allLengths) {
+export function scoreSentence(sentence, allLengths, mode = "general") {
   const words = sentence.toLowerCase().match(/[a-z][a-z'’-]*/g) || [];
   const wc = words.length;
   const signals = [];
@@ -87,7 +89,7 @@ export function scoreSentence(sentence, allLengths) {
   words.forEach(w => {
     const c = w.replace(/['’]/g, "'").replace(/-/g, "");
     const d = LEXICON[c] || LEXICON[w.replace(/['’]/g, "'")];
-    if (d) { lexHits++; lexWeight += d.w; }
+    if (d && entryActiveInMode(d, mode)) { lexHits++; lexWeight += d.w; }
   });
   if (lexHits > 0) {
     const density = lexWeight / Math.max(wc, 1);
@@ -104,9 +106,11 @@ export function scoreSentence(sentence, allLengths) {
   let phraseHits = 0, phraseWeight = 0;
   const lowSent = sentence.toLowerCase().replace(/['’]/g, "'");
   for (const phr in PHRASES) {
+    const def = PHRASES[phr];
+    if (!entryActiveInMode(def, mode)) continue;
     if (lowSent.indexOf(phr) >= 0) {
       phraseHits++;
-      phraseWeight += PHRASES[phr].w;
+      phraseWeight += def.w;
     }
   }
   if (phraseHits > 0) {

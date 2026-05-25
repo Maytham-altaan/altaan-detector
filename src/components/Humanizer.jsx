@@ -3,6 +3,7 @@ import {
   tokenize, detectPhrases, splitSentences, scoreSentence,
   verdictOf, docVerdictOf, matchCase, inflectMatch,
 } from "../lib/analysis.js";
+import { MODES } from "../data/lexicon.js";
 import { thesaurusLookup } from "../data/thesaurus.js";
 import { rewriteSentence } from "../lib/api.js";
 import "./humanizer.css";
@@ -69,14 +70,15 @@ export default function Humanizer({ user, onNeedAuth, onNeedUpgrade, onUsageUsed
   const [active, setActive] = useState(null);
   const [activePhrase, setActivePhrase] = useState(null);
   const [minWeight, setMinWeight] = useState(1);
+  const [mode, setMode] = useState("general");
   const [tab, setTab] = useState("detector");
   const [openSentence, setOpenSentence] = useState(null);
   const [sentenceRewrites, setSentenceRewrites] = useState({}); // idx -> new text
   const [rewriting, setRewriting] = useState({});               // idx -> bool
   const [rewriteError, setRewriteError] = useState("");
 
-  const tokens = useMemo(() => tokenize(raw), [raw]);
-  const phrases = useMemo(() => detectPhrases(tokens), [tokens]);
+  const tokens = useMemo(() => tokenize(raw, mode), [raw, mode]);
+  const phrases = useMemo(() => detectPhrases(tokens, mode), [tokens, mode]);
 
   const { phraseByStart, coveredByPhrase } = useMemo(() => {
     const byStart = {}, covered = {};
@@ -125,7 +127,7 @@ export default function Humanizer({ user, onNeedAuth, onNeedUpgrade, onUsageUsed
     const sents = splitSentences(workingText);
     const lengths = sents.map(s => (s.raw.toLowerCase().match(/[a-z][a-z'’-]*/g) || []).length);
     const scored = sents.map((s, i) => {
-      const r = scoreSentence(s.raw, lengths);
+      const r = scoreSentence(s.raw, lengths, mode);
       return { ...s, ...r, idx: i, verdict: verdictOf(r.score),
         aiRewritten: sentenceRewrites[i] !== undefined };
     });
@@ -142,7 +144,7 @@ export default function Humanizer({ user, onNeedAuth, onNeedUpgrade, onUsageUsed
       human: scored.filter(s => s.verdict.key === "human").length,
     };
     return { sents: scored, docScore, counts, totalWords, sentenceCount: scored.length };
-  }, [workingText, sentenceRewrites]);
+  }, [workingText, sentenceRewrites, mode]);
 
   const docVerdict = useMemo(() => docVerdictOf(analysis.docScore), [analysis.docScore]);
 
@@ -326,13 +328,65 @@ export default function Humanizer({ user, onNeedAuth, onNeedUpgrade, onUsageUsed
     return out;
   }
 
+  /* file-upload handler — supports .txt and .docx */
+  async function onFileUpload(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    setRewriteError("");
+    try {
+      const name = file.name.toLowerCase();
+      let text = "";
+      if (name.endsWith(".txt") || file.type === "text/plain") {
+        text = await file.text();
+      } else if (name.endsWith(".docx")) {
+        const mammoth = await import("mammoth/mammoth.browser.js");
+        const buf = await file.arrayBuffer();
+        const r = await mammoth.extractRawText({ arrayBuffer: buf });
+        text = r.value || "";
+      } else if (name.endsWith(".doc")) {
+        throw new Error("Legacy .doc format isn't supported. Please save as .docx and try again.");
+      } else {
+        throw new Error("Unsupported file type. Use .txt or .docx.");
+      }
+      if (!text.trim()) throw new Error("The file appears to be empty.");
+      /* normalise whitespace; many docx exports use lots of blank paragraphs */
+      text = text.replace(/\r\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+      setRaw(text);
+      reset();
+    } catch (err) {
+      setRewriteError(err.message || "Could not read file.");
+    } finally {
+      /* clear the input so re-uploading the same file works */
+      e.target.value = "";
+    }
+  }
+
   return (
     <>
       {/* INPUT */}
       <section style={S.card}>
-        <label style={S.label}>Your text</label>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+          <label style={{ ...S.label, marginBottom: 0 }}>Your text</label>
+          <label
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 6,
+              padding: "6px 12px", border: "1px solid #cbd5e1", borderRadius: 6,
+              fontSize: 12, cursor: "pointer", background: "#f8fafc", color: "#334155",
+              fontFamily: "ui-sans-serif, system-ui, sans-serif",
+            }}
+            title="Upload a .txt or .docx file"
+          >
+            📎 Upload file
+            <input
+              type="file"
+              accept=".txt,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              onChange={onFileUpload}
+              style={{ display: "none" }}
+            />
+          </label>
+        </div>
         <textarea style={S.textarea} rows={6} value={raw}
-          placeholder="Paste a paragraph or essay here..."
+          placeholder="Paste a paragraph or essay here, or upload a .txt / .docx file..."
           onChange={e => { setRaw(e.target.value); reset(); }} />
       </section>
 
@@ -424,6 +478,20 @@ export default function Humanizer({ user, onNeedAuth, onNeedUpgrade, onUsageUsed
       {tab === "humanizer" && (
         <>
           <div style={S.ctrlRow}>
+            <span style={S.ctrlLabel}>Mode</span>
+            <select
+              value={mode}
+              onChange={(e) => setMode(e.target.value)}
+              style={{
+                padding: "6px 8px", borderRadius: 6, border: "1px solid #cbd5e1",
+                fontSize: 13, background: "#fff", marginRight: 12,
+              }}
+              title="Switches which AI tells are flagged. Try Medical or Academic for thesis writing."
+            >
+              {MODES.map(m => (
+                <option key={m.id} value={m.id}>{m.label}</option>
+              ))}
+            </select>
             <span style={S.ctrlLabel}>Flag sensitivity</span>
             {[[1, "Aggressive"], [2, "Balanced"], [3, "Strict"]].map(([v, lbl]) => (
               <button key={v}

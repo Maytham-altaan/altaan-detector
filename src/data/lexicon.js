@@ -145,6 +145,91 @@ export const BASE = {
   absolutely:{w:1,alt:["completely","totally"]},
   journey:{w:1,alt:["path","trip","experience"]},
   consistent:{w:1,alt:["steady","regular"]},
+
+  /* ------------------------------------------------------------ */
+  /*  EXPANSION  —  added after corpus mining of AI samples       */
+  /*  modes: optional array; if absent, entry applies to all      */
+  /*  modes. If present, entry is active only in those modes.     */
+  /* ------------------------------------------------------------ */
+
+  /* General AI tells (apply everywhere) */
+  emblematic:{w:3,alt:["typical of","representative of","a sign of"]},
+  formidable:{w:3,alt:["strong","tough","serious"]},
+  omnipresent:{w:3,alt:["everywhere","widespread"]},
+  overarching:{w:3,alt:["main","top-level","big-picture"]},
+  salient:{w:3,alt:["main","key","important"]},
+  staggering:{w:3,alt:["huge","shocking","surprising"]},
+  stark:{w:2,alt:["clear","sharp","plain"]},
+  wholeheartedly:{w:3,alt:["fully","completely"]},
+  adept:{w:2,alt:["skilled","good at"]},
+  ascertain:{w:3,alt:["find out","confirm","work out"]},
+  commendable:{w:3,alt:["worthy","good","praiseworthy"]},
+  discern:{w:2,alt:["see","spot","work out"]},
+  elucidate:{w:3,alt:["explain","clarify","spell out"]},
+  glean:{w:2,alt:["gather","pick up","learn"]},
+  ostensibly:{w:3,alt:["seemingly","apparently"]},
+  proliferation:{w:3,alt:["spread","growth","rise"]},
+  propensity:{w:3,alt:["tendency","habit","leaning"]},
+  substantiate:{w:3,alt:["back up","prove","support"]},
+  intrinsic:{w:2,alt:["built-in","natural","basic"]},
+  intuitive:{w:2,alt:["easy","natural","clear"]},
+  iterative:{w:2,alt:["step-by-step","repeated"]},
+  insightful:{w:2,alt:["smart","sharp","useful"]},
+  proficient:{w:2,alt:["skilled","good at","capable"]},
+  attest:{w:2,alt:["show","prove","back up"]},
+  posit:{w:3,alt:["suggest","claim","propose"]},
+  myriad:{w:3,alt:["many","countless","a lot of"]},
+  underpin:{w:3,alt:["support","back up","be the base of"]},
+  exemplary:{w:3,alt:["model","first-rate","ideal"]},
+
+  /* Academic / research mode */
+  epistemological:{w:3,alt:["about knowledge"],modes:["academic"]},
+  methodological:{w:2,alt:["procedural","method-based"],modes:["academic"]},
+  empirical:{w:2,alt:["evidence-based","observed"],modes:["academic"]},
+  conceptualize:{w:3,alt:["think of","frame","form an idea of"],modes:["academic"]},
+  operationalize:{w:3,alt:["put into practice","apply"],modes:["academic","business"]},
+  problematize:{w:3,alt:["question","complicate"],modes:["academic"]},
+  contextualize:{w:3,alt:["put in context","frame"],modes:["academic"]},
+  substantive:{w:2,alt:["real","solid","meaningful"],modes:["academic"]},
+  germane:{w:3,alt:["relevant","related"],modes:["academic"]},
+  axiomatic:{w:3,alt:["obvious","self-evident","given"],modes:["academic"]},
+  hermeneutic:{w:3,alt:["interpretive"],modes:["academic"]},
+  scholarly:{w:1,alt:["academic","research-based"],modes:["academic"]},
+  normative:{w:2,alt:["standard","expected"],modes:["academic"]},
+  paradigmatic:{w:3,alt:["model","example-setting"],modes:["academic"]},
+  foregrounded:{w:3,alt:["highlighted","brought forward"],modes:["academic"]},
+  predicated:{w:3,alt:["based on","resting on"],modes:["academic"]},
+
+  /* Medical / clinical mode */
+  efficacious:{w:3,alt:["effective","working"],modes:["medical"]},
+  deleterious:{w:3,alt:["harmful","damaging"],modes:["medical"]},
+  modulate:{w:2,alt:["adjust","change","tune"],modes:["medical"]},
+  ameliorate:{w:3,alt:["improve","ease","reduce"],modes:["medical"]},
+  exacerbate:{w:2,alt:["worsen","make worse","aggravate"],modes:["medical"]},
+  predispose:{w:3,alt:["make likely","set up for"],modes:["medical"]},
+  attributable:{w:2,alt:["caused by","due to"],modes:["medical"]},
+  multidisciplinary:{w:2,alt:["multi-specialty","cross-field"],modes:["medical"]},
+  prognostic:{w:2,alt:["predictive"],modes:["medical"]},
+  suboptimal:{w:3,alt:["poor","not ideal","limited"],modes:["medical","business"]},
+  prevalent:{w:2,alt:["common","widespread"],modes:["medical"]},
+  manifest:{w:2,alt:["show","appear","present"],modes:["medical"]},
+
+  /* Business / marketing mode */
+  scalable:{w:3,alt:["growable","able to grow"],modes:["business"]},
+  scalability:{w:3,alt:["growth potential","ability to grow"],modes:["business"]},
+  actionable:{w:3,alt:["doable","clear","practical"],modes:["business"]},
+  strategic:{w:1,alt:["planned","thought-out"],modes:["business"]},
+  proactive:{w:2,alt:["forward-thinking","prepared"],modes:["business"]},
+  disruptive:{w:2,alt:["game-changing","new"],modes:["business"]},
+  granular:{w:2,alt:["detailed","fine"],modes:["business"]},
+  ideate:{w:3,alt:["brainstorm","think up"],modes:["business"]},
+  bandwidth:{w:2,alt:["time","capacity"],modes:["business"]},
+
+  /* Blog / casual mode */
+  literally:{w:2,alt:["actually","really"],modes:["blog"]},
+  basically:{w:2,alt:["in short","roughly"],modes:["blog"]},
+  fundamentally:{w:2,alt:["at heart","basically"],modes:["blog"]},
+  unleash:{w:3,alt:["release","let loose","free"],modes:["blog"]},
 };
 
 export const PHRASES = {
@@ -238,6 +323,80 @@ export const PHRASES = {
   "in today's fast-paced":{w:3,alt:["these days","right now"]},
   "let's get started on this journey":{w:3,alt:["let's begin","let's start"]},
   "get started on this journey":{w:3,alt:["begin","start"]},
+
+  /* ------------------------------------------------------------ */
+  /*  EXPANSION  —  multi-word phrases by mode                    */
+  /* ------------------------------------------------------------ */
+
+  /* General */
+  "the importance of":{w:2,alt:["how important","why"]},
+  "growing body of evidence":{w:3,alt:["more evidence","mounting data"]},
+  "in the digital age":{w:3,alt:["these days","online today"]},
+  "in the modern era":{w:3,alt:["these days","now"]},
+  "in the modern world":{w:3,alt:["these days","today"]},
+  "given the":{w:1,alt:["with","considering the"]},
+  "it goes without saying":{w:3,alt:["clearly","of course"]},
+  "it should be noted that":{w:3,alt:["note that"]},
+  "more and more":{w:2,alt:["increasingly","growing numbers of"]},
+  "a key takeaway":{w:3,alt:["a main point","one lesson"]},
+  "key takeaway":{w:3,alt:["main point","lesson"]},
+  "as we navigate":{w:3,alt:["as we work through","as we deal with"]},
+  "navigate the complexities":{w:3,alt:["work through the issues","handle the difficulties"]},
+  "the complexities of":{w:2,alt:["the issues with","what makes X hard"]},
+  "set the stage":{w:3,alt:["prepare","lay the groundwork"]},
+  "lay the foundation":{w:3,alt:["set up","prepare"]},
+  "lay the groundwork":{w:3,alt:["prepare","set up"]},
+  "in essence":{w:2,alt:["basically","in short"]},
+
+  /* Academic */
+  "this paper":{w:1,alt:["this work","this report"],modes:["academic"]},
+  "the present study":{w:2,alt:["this study","our work"],modes:["academic"]},
+  "as previously mentioned":{w:2,alt:["as said","as above"],modes:["academic"]},
+  "the literature suggests":{w:3,alt:["studies show","research shows"],modes:["academic"]},
+  "scholarly consensus":{w:3,alt:["wide agreement","general view"],modes:["academic"]},
+  "extensive research":{w:2,alt:["much research","many studies"],modes:["academic"]},
+  "this paper aims to":{w:3,alt:["this work explores","we examine"],modes:["academic"]},
+  "the findings suggest":{w:2,alt:["the results show"],modes:["academic"]},
+  "a growing body of literature":{w:3,alt:["a growing field of research"],modes:["academic"]},
+  "in line with":{w:1,alt:["matching","consistent with"],modes:["academic"]},
+
+  /* Medical */
+  "clinical implications":{w:2,alt:["effects in practice","practical effects"],modes:["medical"]},
+  "remains poorly understood":{w:3,alt:["isn't well understood","is still unclear"],modes:["medical"]},
+  "warrants further investigation":{w:3,alt:["needs more study","calls for more research"],modes:["medical"]},
+  "underscores the importance":{w:3,alt:["highlights how important","stresses the value of"],modes:["medical"]},
+  "evidence-based":{w:1,alt:["supported by evidence","backed by data"],modes:["medical"]},
+  "clinically significant":{w:2,alt:["meaningful in practice","important clinically"],modes:["medical"]},
+  "growing body of evidence suggests":{w:3,alt:["more evidence shows","mounting data shows"],modes:["medical"]},
+  "the etiology of":{w:3,alt:["the cause of"],modes:["medical"]},
+  "the pathogenesis of":{w:3,alt:["how X develops"],modes:["medical"]},
+  "play a crucial role in":{w:3,alt:["matter a lot in","are key to"],modes:["medical"]},
+
+  /* Business */
+  "best practices":{w:2,alt:["proven methods","standard methods"],modes:["business"]},
+  "value proposition":{w:3,alt:["what makes it worth it","customer value"],modes:["business"]},
+  "moving the needle":{w:3,alt:["making real progress","driving real change"],modes:["business"]},
+  "move the needle":{w:3,alt:["make real progress","drive change"],modes:["business"]},
+  "low-hanging fruit":{w:3,alt:["easy wins","obvious targets"],modes:["business"]},
+  "circle back":{w:3,alt:["come back to","revisit"],modes:["business"]},
+  "the bottom line":{w:2,alt:["in short","the key point"],modes:["business"]},
+  "scale up":{w:2,alt:["grow","expand"],modes:["business"]},
+  "drive value":{w:3,alt:["create value","add value"],modes:["business"]},
+  "customer-centric":{w:3,alt:["customer-focused"],modes:["business"]},
+  "data-driven":{w:1,alt:["based on data","data-led"],modes:["business"]},
+  "mission-critical":{w:3,alt:["essential","must-have"],modes:["business"]},
+  "north star":{w:3,alt:["main goal","top focus"],modes:["business"]},
+
+  /* Blog */
+  "you might be wondering":{w:3,alt:["you may ask","you may be thinking"],modes:["blog"]},
+  "let me tell you":{w:3,alt:["honestly","look"],modes:["blog"]},
+  "here's the thing":{w:3,alt:["look","the truth is"],modes:["blog"]},
+  "imagine if":{w:2,alt:["what if","picture this"],modes:["blog"]},
+  "the truth is":{w:2,alt:["honestly","really"],modes:["blog"]},
+  "what if i told you":{w:3,alt:["consider this","here's a thought"],modes:["blog"]},
+  "trust me":{w:2,alt:["honestly","really"],modes:["blog"]},
+  "buckle up":{w:3,alt:["get ready","brace yourself"],modes:["blog"]},
+  "a journey of":{w:3,alt:["a path of","a process of"],modes:["blog"]},
 };
 
 export const AI_OPENERS = [
@@ -263,12 +422,13 @@ export const HEDGES = [
 export const WEIGHT_LABEL = { 3: "very AI-like", 2: "AI-leaning", 1: "soft flag" };
 
 /* expand base words to common inflected forms so the detector also catches
-   "leverages", "leveraging", "leveraged", etc. */
+   "leverages", "leveraging", "leveraged", etc. Preserves `modes` field. */
 function expand(base) {
   const out = {};
   for (const [word, def] of Object.entries(base)) {
     out[word] = def;
-    const { w, alt } = def;
+    const { w, alt, modes } = def;
+    const inflected = modes ? { w, alt, modes } : { w, alt };
     const forms = new Set();
     if (/[^s]$/.test(word)) forms.add(word + "s");
     if (/e$/.test(word)) {
@@ -279,9 +439,29 @@ function expand(base) {
       forms.add(word + "ed");
     }
     if (/[^y]$/.test(word) && !/ly$/.test(word)) forms.add(word + "ly");
-    for (const f of forms) if (!out[f] && !base[f]) out[f] = { w, alt };
+    for (const f of forms) if (!out[f] && !base[f]) out[f] = inflected;
   }
   return out;
 }
 
 export const LEXICON = expand(BASE);
+
+/* Available modes shown in the UI mode picker. */
+export const MODES = [
+  { id: "general",  label: "General"     },
+  { id: "academic", label: "Academic"    },
+  { id: "medical",  label: "Medical"     },
+  { id: "business", label: "Business"    },
+  { id: "blog",     label: "Blog/Casual" },
+];
+
+/* Check whether an entry's modes field permits use in the active mode.
+   Rule: if the entry has no modes field, it's always active.
+   If it has a modes field, the current mode must be in it.
+   "general" mode acts as "all entries active" — no filtering. */
+export function entryActiveInMode(def, mode) {
+  if (!def) return false;
+  if (!mode || mode === "general") return true;
+  if (!def.modes) return true;
+  return def.modes.includes(mode);
+}
